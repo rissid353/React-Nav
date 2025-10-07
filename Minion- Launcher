@@ -1,0 +1,196 @@
+import React from 'react';
+import {
+  SafeAreaView,
+  View,
+  Text,
+  ImageBackground,
+  TouchableOpacity,
+  StyleSheet,
+  StatusBar,
+  useColorScheme,
+} from 'react-native';
+
+// Expo users: drop this file into a new expo project (expo init) and replace App.js
+// This component is self-contained and intentionally keeps dependencies minimal.
+// It mimics the original Tailwind HTML layout using React Native primitives.
+
+export default function MinionLauncher() {
+  const colorScheme = useColorScheme();
+  const dark = colorScheme === 'dark';
+
+  // Example image; replace with your own remote URI or local asset (require(...)).
+  const heroImage = {
+    uri:
+      'https://lh3.googleusercontent.com/aida-public/AB6AXuDUEEMsdtrXgJhs4OOUvVmZ2Kr7wVq4oHKO266CZTtJ8HjJex44u32AUEdq139m5OTwyEHRtaM6jpyx5d6v-CEgfvxLBDDdEP3SDKmg8XzE01-ShnOuJ4y6Re0MsF9fXNZQoI3MCZLaDE7jWOMyARA1VOA9RhmyDZXe96c0GxmzUVtyVpN0-WvbvEAK8ZF13xxeBd3WZQp556sbh9wYWJ3dEcD5JVd2IKNfLx3xPYrR-atN4ZWaudaMf4siYp58U5h-aeszFCIrT60',
+  };
+
+  return (
+    <SafeAreaView
+      style={[styles.container, dark ? styles.containerDark : styles.containerLight]}
+    >
+      <StatusBar barStyle={dark ? 'light-content' : 'dark-content'} />
+
+      {/* Header */}
+      <View style={styles.header}>
+        <View style={styles.headerLeft} />
+        <Text style={[styles.title, dark ? styles.textLight : styles.textDark]}>Minion Launcher</Text>
+        <TouchableOpacity
+          accessibilityRole="button"
+          style={[styles.iconButton, dark ? styles.iconButtonDark : styles.iconButtonLight]}
+        >
+          <Text style={[styles.iconEmoji]}>⚙️</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Main */}
+      <View style={styles.main}>
+        <View style={styles.heroWrap}>
+          <ImageBackground source={heroImage} style={styles.hero} imageStyle={styles.heroImage} />
+        </View>
+
+        <TouchableOpacity style={[styles.launchButton, dark ? styles.launchButtonDark : styles.launchButtonLight]}>
+          <Text style={[styles.launchText, dark ? styles.textDark : styles.textDark]}>Launch Minion</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Bottom Nav */}
+      <View style={[styles.nav, dark ? styles.navDark : styles.navLight]}>
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={[styles.navIcon]}>🚀</Text>
+          <Text style={[styles.navLabel, styles.primaryText]}>Launch</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>⚙️</Text>
+          <Text style={styles.navLabel}>Customize</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity style={styles.navItem}>
+          <Text style={styles.navIcon}>🏆</Text>
+          <Text style={styles.navLabel}>Leaderboard</Text>
+        </TouchableOpacity>
+      </View>
+    </SafeAreaView>
+  );
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1,
+    minHeight: 700,
+  },
+  containerLight: {
+    backgroundColor: '#f8f8f5',
+  },
+  containerDark: {
+    backgroundColor: '#23220f',
+  },
+  header: {
+    paddingHorizontal: 16,
+    paddingVertical: 12,
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  headerLeft: {
+    width: 24,
+    height: 24,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: '700',
+  },
+  textDark: {
+    color: '#23220f',
+  },
+  textLight: {
+    color: '#f8f8f5',
+  },
+  iconButton: {
+    width: 40,
+    height: 40,
+    borderRadius: 999,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  iconButtonLight: {
+    backgroundColor: 'rgba(249,245,6,0.2)',
+  },
+  iconButtonDark: {
+    backgroundColor: 'rgba(249,245,6,0.3)',
+  },
+  iconEmoji: {
+    fontSize: 18,
+  },
+  main: {
+    flex: 1,
+    padding: 16,
+    alignItems: 'center',
+    justifyContent: 'center',
+  },
+  heroWrap: {
+    width: '100%',
+    maxWidth: 900,
+    aspectRatio: 16 / 9,
+    marginBottom: 28,
+  },
+  hero: {
+    flex: 1,
+    borderRadius: 16,
+    overflow: 'hidden',
+    backgroundColor: '#ddd',
+  },
+  heroImage: {
+    resizeMode: 'cover',
+  },
+  launchButton: {
+    height: 64,
+    width: '100%',
+    maxWidth: 420,
+    borderRadius: 999,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 20,
+  },
+  launchButtonLight: {
+    backgroundColor: '#f9f506',
+  },
+  launchButtonDark: {
+    backgroundColor: '#f9f506',
+  },
+  launchText: {
+    fontSize: 18,
+    fontWeight: '800',
+  },
+  nav: {
+    borderTopWidth: StyleSheet.hairlineWidth,
+    paddingTop: 8,
+    paddingBottom: 18,
+  },
+  navLight: {
+    backgroundColor: 'rgba(248,248,245,0.8)',
+    borderColor: 'rgba(35,34,15,0.1)',
+  },
+  navDark: {
+    backgroundColor: 'rgba(35,34,15,0.8)',
+    borderColor: 'rgba(248,248,245,0.08)',
+  },
+  navItem: {
+    flex: 1,
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingHorizontal: 8,
+  },
+  navIcon: {
+    fontSize: 24,
+    marginBottom: 4,
+  },
+  navLabel: {
+    fontSize: 12,
+    fontWeight: '600',
+    color: 'rgba(35,34,15,0.5)',
+  },
+  primaryText: {
+    color: '#f9f506',
+  },
+});
